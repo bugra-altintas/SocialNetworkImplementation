@@ -1,4 +1,4 @@
-# SocialNetworkImplementation
+# Social Network Implementation
 A social network implementation by using doubly linked list. This project includes two big parts. **Linked List** part shows the data structure used in the project. **Social Network** part shows the social network implementation.
 
 ## Linked List Part
