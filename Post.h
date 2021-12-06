@@ -4,7 +4,6 @@
 
 #include <iostream>
 
-// DO NOT CHANGE THIS FILE.
 
 class Post {
 public:

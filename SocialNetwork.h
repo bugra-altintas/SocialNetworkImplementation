@@ -29,7 +29,7 @@ public:
     void print() const;
 
 
-private: // YOU MAY ADD YOUR OWN UTILITY MEMBER FUNCTIONS HERE.
+private: 
 
 private:
     LinkedList<Profile> profiles;

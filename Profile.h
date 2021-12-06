@@ -7,7 +7,6 @@
 #include "LinkedList.h"
 #include "Post.h"
 
-// DO NOT CHANGE THIS FILE.
 
 class Profile {
 public:

@@ -8,7 +8,7 @@
 using namespace std;
 template<class T>
 class LinkedList {
-public: // DO NOT CHANGE THIS PART.
+public: 
     LinkedList();
     LinkedList(const T arr[], int arrSize);
     LinkedList(const LinkedList<T> &obj);
@@ -38,19 +38,19 @@ public: // DO NOT CHANGE THIS PART.
     LinkedList<T> &operator=(const LinkedList<T> &rhs);
 
 private:
-	///YOU MAY ADD YOUR OWN UTILITY MEMBER FUNCTIONS HERE.
 	void remove_first();
-private: // DO NOT CHANGE THIS PART.
+private: 
     Node<T> *head;
     Node<T> *tail;
 };
 
+//default constructor
 template<class T>
-LinkedList<T>::LinkedList() {
+LinkedList<T>::LinkedList() { 
     head = nullptr;
 	tail = nullptr;
 }
-
+ //A constructor takes an array of T objects (arr) and the size of the arr array (arrSize) as parameters.
 template<class T>
 LinkedList<T>::LinkedList(const T arr[], int arrSize) {
     int i;
@@ -68,6 +68,7 @@ LinkedList<T>::LinkedList(const T arr[], int arrSize) {
 	tail = curr;
 }
 
+// the copy constructor
 template<class T>
 LinkedList<T>::LinkedList(const LinkedList<T> &obj) {
     Node<T> *curr;
@@ -89,6 +90,7 @@ LinkedList<T>::LinkedList(const LinkedList<T> &obj) {
 	}
 }
 
+// destructor, deallocate all the memory allocated before
 template<class T>
 LinkedList<T>::~LinkedList() {
 	removeAllNodes();
@@ -96,7 +98,7 @@ LinkedList<T>::~LinkedList() {
 	tail = nullptr;
 }
 	
-
+// A function returns a pointer to the first node in the linked list.
 template<class T>
 Node<T> *LinkedList<T>::getFirstNode() const {
     if(isEmpty()){
@@ -105,6 +107,7 @@ Node<T> *LinkedList<T>::getFirstNode() const {
 	return head;
 }
 
+// A function returns a pointer to the last node in the linked list.
 template<class T>
 Node<T> *LinkedList<T>::getLastNode() const {
     if(isEmpty()){
@@ -113,6 +116,7 @@ Node<T> *LinkedList<T>::getLastNode() const {
 	return tail;
 }
 
+// A function returns a pointer the node which includes the data given as parameter
 template<class T>
 Node<T> *LinkedList<T>::getNode(const T &data) const {
     Node<T> *curr;
@@ -129,6 +133,7 @@ Node<T> *LinkedList<T>::getNode(const T &data) const {
 	return nullptr;
 }
 
+//  A function returns the number of nodes in the linked list.
 template<class T>
 int LinkedList<T>::getNumberOfNodes() const {
     int k=0;
@@ -141,6 +146,7 @@ int LinkedList<T>::getNumberOfNodes() const {
 	return k;
 }
 
+// A function checks whether the linked list is empty or not.
 template<class T>
 bool LinkedList<T>::isEmpty() const {
     if(head==nullptr){
@@ -149,6 +155,7 @@ bool LinkedList<T>::isEmpty() const {
 	return false;
 }
 
+// A function checks whether the given node is in the linked list or not.
 template<class T>
 bool LinkedList<T>::contains(Node<T> *node) const {
 	Node<T> *curr;
@@ -162,6 +169,7 @@ bool LinkedList<T>::contains(Node<T> *node) const {
 	return false;
 }
 
+// A function creates and inserts a node at the beginning of the linked list with given data.
 template<class T>
 void LinkedList<T>::insertAtTheHead(const T &data) {
 	if(head == nullptr){
@@ -176,6 +184,7 @@ void LinkedList<T>::insertAtTheHead(const T &data) {
 	}
 }
 
+// A function creates and inserts a node at the end of the linked list with given data.
 template<class T>
 void LinkedList<T>::insertAtTheTail(const T &data) {
     
@@ -190,6 +199,7 @@ void LinkedList<T>::insertAtTheTail(const T &data) {
 	}
 }
 
+// A function creates a node with given data and inserts it to the right place, assuming linked list is ordered ascending.
 template<class T>
 void LinkedList<T>::insertSorted(const T &data) {
 	if(head == nullptr){
@@ -232,7 +242,8 @@ void LinkedList<T>::insertSorted(const T &data) {
 		}
 	}
 }
-//check remove functions
+
+// A function deletes given node from the linked list.
 template<class T>
 void LinkedList<T>::removeNode(Node<T> *node) {
 	if(isEmpty() || !contains(node)) return;
@@ -254,6 +265,7 @@ void LinkedList<T>::removeNode(Node<T> *node) {
 	}
 }
 
+// A function deletes the node with given data from the linked list.
 template<class T>
 void LinkedList<T>::removeNode(const T &data) {
     if(isEmpty()) return;
@@ -264,6 +276,7 @@ void LinkedList<T>::removeNode(const T &data) {
 	removeNode(curr);
 }
 
+// A function deletes all nodes from the linked list.
 template<class T>
 void LinkedList<T>::removeAllNodes() {
     if(isEmpty()) return;
@@ -273,6 +286,8 @@ void LinkedList<T>::removeAllNodes() {
 	tail = nullptr;
 	
 }
+
+// A function deletes the first node from the linked list.
 template<class T>
 void LinkedList<T>::remove_first() {
     if (head == nullptr) {
@@ -284,6 +299,7 @@ void LinkedList<T>::remove_first() {
 	
 }
 
+// A function prints the all linked list content.
 template<class T>
 void LinkedList<T>::print() const {
     std::cout << "Printing the linked list ..." << std::endl;
@@ -301,6 +317,7 @@ void LinkedList<T>::print() const {
     }
 }
 
+// A function returns an array which includes the data of all nodes in the linked list.
 template<class T>
 T *LinkedList<T>::toArray() const {
     if(isEmpty()) return nullptr;
@@ -315,6 +332,7 @@ T *LinkedList<T>::toArray() const {
 	return Arr;
 }
 
+// Overloading assignment operator, recreate the linked list with given linked list as parameter
 template<class T>
 LinkedList<T> &LinkedList<T>::operator=(const LinkedList<T> &rhs) {
 	if(rhs.isEmpty()) this->removeAllNodes();

@@ -2,15 +2,19 @@
 
 #include <iostream>
 using namespace std;
+
+// default constructor
 SocialNetwork::SocialNetwork() {
 
 }
 
+// A function adds a new profile to profiles linked list sorted.
 void SocialNetwork::addProfile(const std::string &firstname, const std::string &lastname, const std::string &email) {
 	Profile newProfile(firstname,lastname,email);
 	profiles.insertSorted(newProfile);
 }
 
+// A function adds a new post to posts linked list, also adds the post to posts of the user given by email.
 void SocialNetwork::addPost(const std::string &message, const std::string &email) {
 	Node<Profile> *curr = profiles.getFirstNode();
 	while(curr->data.getEmail() != email) curr = curr->next; 
@@ -20,20 +24,20 @@ void SocialNetwork::addPost(const std::string &message, const std::string &email
 	Post *post = &(curr1->data);
 	curr->data.addPost(post);
 }
-
+// A function deletes a profile. Also it includes some steps given in detail below.
 void SocialNetwork::deleteProfile(const std::string &email) {
 	Node<Profile> *curr = profiles.getFirstNode();
 	while(curr != nullptr && curr->data.getEmail() != email) curr = curr->next;
 	if(!curr) return;
 	Profile *user = &(curr->data);
-	// deleting the user from its friends' list of friends (works)
+	// deleting the user from its friends' list of friends
 	Node<Profile*> *fr = user->getFriends().getFirstNode();
 	while(fr){
 		fr->data->dropFriend(user);
 		fr = fr->next;
 	}
 	
-	//deleting the user's posts from other users' list of likes(works)
+	//deleting the user's posts from other users' list of likes
 	Node<Post*> *post = user->getPosts().getFirstNode();
 	Node<Profile> *prof = profiles.getFirstNode();
 	while(prof){
@@ -66,16 +70,17 @@ void SocialNetwork::deleteProfile(const std::string &email) {
 	}
 	
 	
-	//deleting the content of the profile object(works)
+	//deleting the content of the profile object
 	user->getPosts().removeAllNodes();
 	user->getFriends().removeAllNodes();
 	user->getLikes().removeAllNodes();
-	//deleting the profile from social network(works)
+	//deleting the profile from social network
 	profiles.removeNode(curr);
 	
 	
 }
 
+// A function adds two profiles as friends with each other.
 void SocialNetwork::makeFriends(const std::string &email1, const std::string &email2) {
 	Node<Profile> *curr1 = profiles.getFirstNode();
 	while(curr1 != nullptr && curr1->data.getEmail() != email1) curr1 = curr1->next;
@@ -90,6 +95,7 @@ void SocialNetwork::makeFriends(const std::string &email1, const std::string &em
 	
 }
 
+// A function marks a post given by postId liked by a user with given by email.
 void SocialNetwork::likePost(int postId, const std::string &email) {
 	Node<Post> *curr = posts.getFirstNode();
 	while(curr != nullptr && curr->data.getPostId() != postId) curr = curr->next;
@@ -99,6 +105,8 @@ void SocialNetwork::likePost(int postId, const std::string &email) {
 	curr1->data.addLike(&(curr->data));
 	
 }
+
+// A function makes a post given by postId unliked by a user with given by email.
 void SocialNetwork::unlikePost(int postId, const std::string &email) {
 	Node<Post> *curr = posts.getFirstNode();
 	while(curr->data.getPostId() != postId) curr = curr->next;
@@ -110,6 +118,7 @@ void SocialNetwork::unlikePost(int postId, const std::string &email) {
 	(curr1->data).dropLike(post);
 }
 
+// A function returns a linked list of pointers to mutual friends of two user given by email1 and email2.
 LinkedList<Profile *> SocialNetwork::getMutualFriends(const std::string &email1, const std::string &email2) {
     Node<Profile> *curr1 = profiles.getFirstNode();
 	while(curr1 != nullptr && curr1->data.getEmail() != email1) curr1 = curr1->next;
@@ -132,6 +141,7 @@ LinkedList<Profile *> SocialNetwork::getMutualFriends(const std::string &email1,
 	return mutual;
 }
 
+// A function returns a linked list of pointers to the k most recent posts of the user given by email.
 LinkedList<Post *> SocialNetwork::getListOfMostRecentPosts(const std::string &email, int k) {
 	Node<Profile> *curr1 = profiles.getFirstNode();
 	while(curr1 != nullptr && curr1->data.getEmail() != email) curr1 = curr1->next;

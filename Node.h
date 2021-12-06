@@ -2,7 +2,6 @@
 #define NODE_H
 
 
-// DO NOT CHANGE THIS FILE.
 
 #include <ostream>
 #include <iostream>
